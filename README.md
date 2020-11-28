@@ -41,8 +41,11 @@ Use `systemctl status jenkins` to check the status of jenkins. If jenkins is run
 ## Configure jenkins slave
 We use Ubuntu 20.04 instead of the same operating system as jenkins manager (Amazon Linux). Because Amazon Linux has encountered some problems in docker, you should choose OS system based on your project.  
 This instance is used to deploy our project, so there is no need to install jenkins. But in order to manage use jenkins manager, we need to install Java.   
-`sudo apt-get install openjdk-11-jdk`  
 
+`sudo apt-get install openjdk-11-jdk`  
 The Java version should be the same as the jenkins manager.   
-After that [install docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/).   
+
+After that, [install docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/).    
 Now, we done everything in this instance.
+
+## Add jenkins slave in jenkins manager
