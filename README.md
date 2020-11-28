@@ -32,7 +32,8 @@ Now download jenkins repo:
 You can choose the corresponding [Jenkins version](https://pkg.jenkins.io/) according to the OS. We use the redhat-stable jenkins repo for our system, if you using the Amazon Linux you can use this jenkins version as well.
 Install jenkins and start the service:  
 
-`sudo yum install jenkins`
+`sudo yum install jenkins`  
+
 `sudo service jenkins start`  
 
 Use `systemctl status jenkins` to check the status of jenkins. If jenkins is running, open the browser and enter: <Public IPv4 address for jenkins manager instance>:8080 to enter the jenkins configuration page. The Public IPv4 address you can find in AWS EC2 console. Now you enter the jenkins configuration webpage, you need to enter the password to unlock it. You can use `sudo cat ...` command to get the password. Here we install the default plugin which will contain the git plugins we need. 
@@ -75,6 +76,7 @@ In jenkins, New Item -> (give a name) Freestyle. Then you will enter the configu
 5. Build -> Execute shells. Use the follow shell script:  
 
 `chmod +x ./build.sh`  
+
 `sudo ./build.sh`
 
 You can find the details of build.sh in the [project](https://github.com/Jambo-sudo/Historical-document-layout-analysis).  
