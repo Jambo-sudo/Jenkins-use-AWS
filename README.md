@@ -1,5 +1,6 @@
 # Jenkins on AWS EC2
-We take the [Historical-document-layout-analysis](https://github.com/Jambo-sudo/Historical-document-layout-analysis) as an example to show how to deploy project to AWS EC2 instance through jenkins. You can fork this porject to your GitHub and follow this tutorial. We will create two EC2 instances, one is jenkins manager and another is jenkins slave. Our project will running in jenkins slave. The project is triggered by GitHub webhook. When the GitHub is pushed any commit, jenkins will automatically build the project.
+We take the [Historical-document-layout-analysis](https://github.com/Jambo-sudo/Historical-document-layout-analysis) as an example to show how to deploy project to AWS EC2 instance through jenkins. This project builds a webpage that can do layout analysis of document image. We will deploy this project on AWS and make it accessible to everyone.
+You can fork this porject to your GitHub and follow this tutorial. We will create two EC2 instances, one is jenkins manager and another is jenkins slave. Our project will running in jenkins slave. The project is triggered by GitHub webhook. When the GitHub is pushed any commit, jenkins will automatically build the project.
 
 ## Requirement
 In order to complete the deployment, you need an AWS account and some basic knowledge about AWS. The minimum requirements for these two instances are as follows:
