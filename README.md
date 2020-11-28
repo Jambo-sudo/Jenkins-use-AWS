@@ -48,3 +48,4 @@ Now, we done everything in this instance.
 
 ## Add jenkins slave in jenkins manager
 Open the webpage of jenkins manager, select Manage Jenkins -> Manage Nodes and clouds -> New Node. Enter the node name and select Permanent Agent. You will find the configuration page like follow：
+<img src="image/jenkins-node.png" text-align:center alt="web start page" width="1000"> 
