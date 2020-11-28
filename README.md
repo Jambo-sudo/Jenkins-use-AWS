@@ -3,9 +3,9 @@ We take the Historical-document-layout-analysis as an example to demonstrate how
 
 ## Requirement
 In order to complete the deployment, you need some basic knowledge about AWS and an AWS account. We will create two EC2 instances, one is Jenkins manager and another is Jenkins slave. Our project will run in Jenkins slave. The minimum requirements for these two instances are as follows:
-1. Jenkins manager can use any free instance. We use t2.micro instance with Amazon Linux platform (the default choice when you create EC2).
+1. Jenkins manager can use any free instance. We use t2.micro instance with Amazon Linux 2 AMI (HVM) (the default choice when you create EC2).
 
-2. Jenkins slave need at least 4GB of RAM and 12GB of storage. In this project, we use t2.medium and bind a 16GB volume, with Ubuntu 2020. We do not recommend using Amazon Linux or CentOS because there may be problems with docker adaptation.
+2. Jenkins slave need at least 4GB of RAM and 12GB of storage. In this project, we use t2.medium and bind a 16GB volume, with Ubuntu 20.04. We do not recommend using Amazon Linux or CentOS because there may be problems with docker adaptation.
 
 ## Security groups
 For Jenkins manager and Jenkins slave, we configure two security groups respectively.
@@ -36,4 +36,11 @@ Install jenkins and start the service:
 
 `sudo service jenkins start`  
 
-Use `systemctl status jenkins` to check the status of jenkins.
+Use `systemctl status jenkins` to check the status of jenkins. If jenkins is running, open the browser and enter: <Public IPv4 address for jenkins manager instance>8080 to enter the jenkins configuration page. The Public IPv4 address you can find in AWS EC2 console. Now you enter the jenkins configuration webpage, you need to enter the password to unlock it. You can use `sudo cat ...` command to get the password. Here we install the default plugin which will contain the git plugins we need. 
+
+## Configure jenkins slave
+This instance is used to deploy our project, so there is no need to install jenkins. But in order to manage use jenkins manager, we need to install Java.   
+Note: we use Ubuntu 20.04 instead of the same operating system as jenkins manager (Amazon Linux). Because Amazon Linux has encountered some problems in docker, you should choose OS system based on your project.  
+`sudo apt-get install openjdk-11-jdk`
+The Java version should be the same as the jenkins manager. After that [install docker](https://docs.docker.com/engine/install/ubuntu/) and [docker-compose](https://docs.docker.com/compose/install/).   
+Now, we done everything in this instance.
