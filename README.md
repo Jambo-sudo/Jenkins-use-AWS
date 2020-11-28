@@ -34,7 +34,7 @@ Install jenkins and start the service:
 `sudo yum install jenkins`
 `sudo service jenkins start`  
 
-Use `systemctl status jenkins` to check the status of jenkins. If jenkins is running, open the browser and enter: <Public IPv4 address for jenkins manager instance>8080 to enter the jenkins configuration page. The Public IPv4 address you can find in AWS EC2 console. Now you enter the jenkins configuration webpage, you need to enter the password to unlock it. You can use `sudo cat ...` command to get the password. Here we install the default plugin which will contain the git plugins we need. 
+Use `systemctl status jenkins` to check the status of jenkins. If jenkins is running, open the browser and enter: <Public IPv4 address for jenkins manager instance>:8080 to enter the jenkins configuration page. The Public IPv4 address you can find in AWS EC2 console. Now you enter the jenkins configuration webpage, you need to enter the password to unlock it. You can use `sudo cat ...` command to get the password. Here we install the default plugin which will contain the git plugins we need. 
 
 ## Configure jenkins slave
 We use Ubuntu 20.04 instead of the same operating system as jenkins manager (Amazon Linux). Because Amazon Linux has encountered some problems in docker, you should choose OS system based on your project.  
@@ -47,5 +47,43 @@ After that, [install docker](https://docs.docker.com/engine/install/ubuntu/) and
 Now, we done everything in this instance.
 
 ## Add jenkins slave in jenkins manager
-Open the webpage of jenkins manager, select Manage Jenkins -> Manage Nodes and clouds -> New Node. Enter the node name and select Permanent Agent. You will find the configuration page like follow：
+Open the webpage of jenkins manager, select Manage Jenkins -> Manage Nodes and clouds -> New Node. Enter the node name and select Permanent Agent. You will find the configuration page like follow：  
+
 <img src="image/jenkins-node.png" text-align:center alt="web start page" width="1000"> 
+
+Here is an explanation of some parameters:  
+Remote root directory is the root directory of jenkins slave instance. You can find it in the EC2 console. Different OS will have different root directories.  
+When you create a jenkins project, you need to select the node to deploy through labels.  
+In the launch method, select Launch agents via SSH, and then enter the Public IPV4 address of the slave instance in the Host. In the Credentials part, select private key, and then enter the key used to connect to the EC2 instance. This key is a pem file saved in your local machine.  
+
+Click save and you will find this new node on the jenkins node page after a while. If adding a node fails, right-click the node, and then check the log to find the reason.
+
+## Connect to GitHub via webhook
+When some commit is pushed to GitHub, jenkins will automatically build a new project. To achieve this, we need to use webhook. 
+1. In Manage Jenkins -> Configure Jenkins -> GitHub -> Advanced -> Override Hook URL. Copy this URL, if you cannot find GitHub, than you should install Github in plugin.
+2. In your GitHub -> Setting -> Webhooks -> add webhook -> playload URL. Paste the URL.  
+
+Note: Don't forget add the GitHub's IP in your jenkins manager security group, otherwise jenkins may not receive the webhook.  
+
+## Run project in slave node
+In jenkins, New Item -> (give a name) Freestyle. Then you will enter the configuration page, configure as follows:  
+1. Restrict where this project can be run, use the label of your jenkins slave node.
+2. Source Code Management -> Git. Give the Repository URL and credentials, you can [fork our project](https://github.com/Jambo-sudo/Historical-document-layout-analysis) or use your own project. 
+3. Branches to build. Use 'main' or just leave it empty because we only have one branch. 
+4. Build Triggers -> GitHub hook trigger for GITScm polling.
+5. Build -> Execute shells. Use the follow shell script:  
+
+`chmod +x ./build.sh`
+`sudo ./build.sh`
+
+You can find the details of build.sh in the [project](https://github.com/Jambo-sudo/Historical-document-layout-analysis).  
+
+Now everything is ready! You can commit any changes to this GitHub, or click build now. Jenkins will automatically build this project and deploy it to the slave node. Then enter <Public IPv4 address for jenkins slave instance>:5000 in any browser, you will find the start page of this project. If you configure the security group according to our recommendations, then this website is open to the public now. You can invite your family and friends to visit this website. But this website can only be used for testing. Jenkins slave only has 4G memory, which is not enough to handle large input. We also do not have any backup and load balancing to deal with large-scale access.
+
+
+
+
+
+
+
+
