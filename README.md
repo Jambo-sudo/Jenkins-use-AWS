@@ -8,4 +8,4 @@ In order to complete the deployment, you need a AWS account and create two EC2 i
 
 ## Security groups
 For Jenkins manager and Jenkins slave, we configure two security groups respectively.
-1. For Jenkins manager, we should add a Custom TCP rule, open port 8080. This is the default configuration page of Jenkins. In the source, enter the IP address of the host (the local computer you are using to connect AWS). If you don't know the IP address, enter "what is my IP address" in any browser. In addition, you also need to add 3 similar rules to allow GitHub to send webhooks. In these 3 rules, change the source to the [IP address of GitHub hook]<http://www.runoob.com/> 
+1. For Jenkins manager, we should add a Custom TCP rule, open port 8080. This is the default configuration page of Jenkins. In the source, enter the IP address of the host (the local computer you are using to connect AWS). If you don't know the IP address, enter "what is my IP address" in any browser. In addition, you also need to add 3 similar rules to allow GitHub to send webhooks. In these 3 rules, change the source to the [IP address of GitHub hook](http://www.runoob.com/)
