@@ -70,7 +70,7 @@ Note: Don't forget add the GitHub's IP in your jenkins manager security group, o
 ## Run project in slave node
 In jenkins, New Item -> (give a name) Freestyle. Then you will enter the configuration page, configure as follows:  
 1. Restrict where this project can be run, use the label of your jenkins slave node.
-2. Source Code Management -> Git. Give the Repository URL and credentials, you can [fork our project](https://github.com/Jambo-sudo/Historical-document-layout-analysis) or use your own project. 
+2. Source Code Management -> Git. Give the Repository URL and credentials, you can [copy our project](https://github.com/Jambo-sudo/Historical-document-layout-analysis) or use your own project. 
 3. Branches to build. Use 'main' or just leave it empty because we only have one branch. 
 4. Build Triggers -> GitHub hook trigger for GITScm polling.
 5. Build -> Execute shells. Use the follow shell script:  
@@ -79,11 +79,17 @@ In jenkins, New Item -> (give a name) Freestyle. Then you will enter the configu
 
 `sudo ./build.sh`
 
-You can find the details of build.sh in the [project](https://github.com/Jambo-sudo/Historical-document-layout-analysis).  
+You can find the details of build.sh in [here](https://github.com/Jambo-sudo/Historical-document-layout-analysis/blob/main/build.sh).  
 
 Now everything is ready! You can commit any changes to this GitHub, or click build now. Jenkins will automatically build this project and deploy it to the slave node. Then enter <Public IPv4 address for jenkins slave instance>:5000 in any browser, you will find the start page of this project. If you configure the security group according to our recommendations, then this website is open to the public now. You can invite your family and friends to visit this website. But this website can only be used for testing. Jenkins slave only has 4G memory, which is not enough to handle large input. We also do not have any backup and load balancing to deal with large-scale access.
 
+## Some common errors
+1. The webhook cannot be triggered.  
+The most likely reason is that the GitHub's IP was not added in the security group, which caused jenkins can't receive the webhook.  In addition, if your jenkins is installed on your local machine through docker, then this problem may also occur. In this case, your jenkins may cannot access the public network at all. 
+To deal with this issue, you can change the Build Triggers. Use poll SCM instead of webhook, use * * * * * in the scheduler, which means check the GitHub repo every minute. 
 
+2. ERROR: Error cloning remote repo 'origin'
+This problem may occur when building the project. There are several reasons for this error, it may be because jenkins can't find git, so it can't clone. You can go to Global Tool Configuration -> git -> Install automatically. Or give a path to the git. Another common reason is that credentials were not added when adding GitHub repo URL.
 
 
 
