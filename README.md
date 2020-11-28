@@ -86,7 +86,7 @@ Now everything is ready! You can commit any changes to this GitHub, or click bui
 ## Some common errors
 1. The webhook cannot be triggered.  
 The most likely reason is that the GitHub's IP was not added in the security group, which caused jenkins can't receive the webhook.  In addition, if your jenkins is installed on your local machine through docker, then this problem may also occur. In this case, your jenkins may cannot access the public network at all. 
-To deal with this issue, you can change the Build Triggers. Use poll SCM instead of webhook, use "* * * * *" in the scheduler, which means check the GitHub repo every minute. 
+To deal with this issue, you can change the Build Triggers. Use poll SCM instead of webhook, use " * * * * * " in the scheduler, which means check the GitHub repo every minute. 
 
 2. ERROR: Error cloning remote repo 'origin'  
 This problem may occur when building the project. There are several reasons for this error, it may be because jenkins can't find git, so it can't clone. You can go to Global Tool Configuration -> git -> Install automatically. Or give a path to the git. Another common reason is that credentials were not added when adding GitHub repo URL.
