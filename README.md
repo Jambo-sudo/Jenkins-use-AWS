@@ -56,7 +56,7 @@ Open the webpage of jenkins manager, select Manage Jenkins -> Manage Nodes and c
 <img src="image/jenkins-node.png" text-align:center alt="web start page" width="1000"> 
 
 Here is an explanation of some parameters:  
-Remote root directory is the root directory of jenkins slave instance. You can find it in the EC2 console or use CMD `pwd` in jenkins slave. Different OS will have different root directories, so your directory maybe not this one.
+Remote root directory is the root directory of jenkins slave instance. You can find it in the EC2 console or use CMD `pwd` in jenkins slave. Different OS will have different root directories, so your directory maybe not this one.   
 Label is when you create a jenkins project, you can select the node to deploy project through label.   
 In the launch method, select Launch agents via SSH, and then enter the Public IPV4 address of the slave instance in the Host. In the Credentials part, select private key, and then enter the key which used to connect to the EC2 instance. This key is a pem file saved in your local machine.  
 
