@@ -95,7 +95,7 @@ The most likely reason is that the GitHub's IP was not added in the security gro
 In addition, if your jenkins cannot access the public network (deployed on a local virtual machine). You can change the Build Triggers. Use poll SCM instead of webhook, enter * * * * * (five stars) in the scheduler, which means check the GitHub repo every minute. 
 
 2. ERROR: Error cloning remote repo 'origin'  
-This error may occur when jenkins building the project. There are several reasons for this error, it maybe because jenkins can't find git, so it can't clone anything. You can go to Global Tool Configuration -> git -> Install automatically (check it). If you have selected and still get this error, then you may need to manually enter the path to Git. You can pass `whereis git` in CMD to find the path to git.  
+This error may occur when jenkins building the project. There are several reasons for this error, it maybe because jenkins can't find git, so it can't clone anything. You can go to Global Tool Configuration -> git -> Install automatically (check it). If you have selected and still get this error, then you may need to manually enter the path to Git. You can run `whereis git` in CMD to find the path to git.  
 Another possible but almost unmentioned reason is: the credentials were not added when adding GitHub repo URL. Even your GitHub repo is public, you still need to set credentials.
 
 
